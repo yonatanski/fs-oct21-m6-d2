@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { join, dirname } from "path";
 
 const dirnameOfSQLFilePath = dirname(fileURLToPath(import.meta.url));
+
 const sqlFilePath = join(dirnameOfSQLFilePath, "tables.sql");
 
 const createTables = async () => {
