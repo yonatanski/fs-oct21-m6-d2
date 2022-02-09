@@ -1,5 +1,6 @@
--- DROP TABLE IF EXISTS authors;
+
 -- DROP TABLE IF EXISTS blogs;
+-- DROP TABLE IF EXISTS authors;
 
 
 -- how to update table ? 
