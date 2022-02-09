@@ -1,9 +1,21 @@
-import pg from "pg";
+import Sequelize from "sequelize";
 
-// get pool from pg package
-const { Pool } = pg;
+const { POSTGRES_URI, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
 
-// initialize pool class and assign to variable
-const pool = new Pool();
+console.log({
+  PGDATABASE,
+  PGUSER,
+  PGPASSWORD,
+});
+const sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
+  dialect: "postgres",
+});
 
-export default pool;
+export const authenticateDatabase = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("✅ Connection has been established successfully.");
+  } catch (error) {
+    console.error("❌ Unable to connect to the database:", error);
+  }
+};
