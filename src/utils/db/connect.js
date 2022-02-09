@@ -1,21 +1,20 @@
 import Sequelize from "sequelize";
 
-const { POSTGRES_URI, PGDATABASE, PGUSER, PGPASSWORD } = process.env;
+const { POSTGRES_URI } = process.env;
 
-console.log({
-  PGDATABASE,
-  PGUSER,
-  PGPASSWORD,
-});
-const sequelize = new Sequelize(PGDATABASE, PGUSER, PGPASSWORD, {
+const sequelize = new Sequelize(POSTGRES_URI, {
   dialect: "postgres",
 });
 
 export const authenticateDatabase = async () => {
   try {
-    await sequelize.authenticate();
+    await sequelize.authenticate({ logging: false });
+    await sequelize.sync({ alter: true, logging: false });
     console.log("✅ Connection has been established successfully.");
   } catch (error) {
+    console.log(error);
     console.error("❌ Unable to connect to the database:", error);
   }
 };
+
+export default sequelize;
